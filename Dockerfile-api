@@ -1,0 +1,23 @@
+FROM alpine as cloner
+
+# Install git and clone the software repository
+RUN apk add --no-cache git && \
+    git clone https://github.com/ifsc-sj-2024-1-pji29008/software /app
+
+# Build the definitive image
+FROM python:3.11-alpine
+
+# Copy the cloned repository to the image
+COPY --from=cloner /app /app
+
+# Install the required dependencies
+RUN pip install -r /app/requirements.txt
+
+# Set the working directory
+WORKDIR /app
+
+# Expose the port
+EXPOSE 5000
+
+# Run the application
+CMD ["python", "/app/run.py"]
