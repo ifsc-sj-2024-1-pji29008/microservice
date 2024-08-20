@@ -1,0 +1,36 @@
+networks:
+  jiga_teste:
+    external: false
+    name: jiga_teste
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    image: pji29008/api
+    container_name: api
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    networks:
+      - jiga_teste
+    volumes:
+      - /sys/bus/w1/devices:/sys/bus/w1/devices
+      - /home/containers/api/database:/app/instance
+      - /home/containers/api/logs:/app/logs
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile-client
+    image: pji29008/client
+    container_name: client
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+    networks:
+      - jiga_teste
+    environment:
+      - API_ADDRESS=api
+      - API_PORT=5000
