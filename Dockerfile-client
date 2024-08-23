@@ -7,7 +7,7 @@ WORKDIR /app
 RUN export DEBIAN_FRONTEND=noninteractive && \ 
     apt-get update && \
     apt-get install -y git build-essential curl software-properties-common  && \
-    git clone -b cleaning_repo https://github.com/ifsc-sj-2024-1-pji29008/client /app && \
+    git clone -b inicia_plano https://github.com/ifsc-sj-2024-1-pji29008/client /app && \
     pip install --no-cache-dir -r requirements.txt && \
     rm -rf /var/lib/apt/lists/*
 
