@@ -2,7 +2,7 @@ FROM alpine as cloner
 
 # Install git and clone the software repository
 RUN apk add --no-cache git && \
-    git clone https://github.com/ifsc-sj-2024-1-pji29008/software /app
+    git clone -b parametrizacao_plano https://github.com/ifsc-sj-2024-1-pji29008/software /app
 
 # Build the definitive image
 FROM python:3.11-alpine
