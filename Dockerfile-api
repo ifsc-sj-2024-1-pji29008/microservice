@@ -11,13 +11,20 @@ FROM python:3.11-alpine
 COPY --from=cloner /app /app
 
 # Install the required dependencies
-RUN pip install -r /app/requirements.txt
+RUN pip install -r /app/requirements.txt && \
+    apk add --no-cache bash
 
 # Set the working directory
 WORKDIR /app
+
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+# Copy the W1-simulator script
+COPY w1_simulator /app/w1_simulator
 
 # Expose the port
 EXPOSE 5000
 
 # Run the application
-CMD ["python", "/app/run.py"]
+CMD ["/entrypoint.sh"]
