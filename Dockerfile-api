@@ -1,4 +1,4 @@
-FROM alpine as cloner
+FROM alpine AS cloner
 
 # Install git and clone the software repository
 RUN apk add --no-cache git && \
